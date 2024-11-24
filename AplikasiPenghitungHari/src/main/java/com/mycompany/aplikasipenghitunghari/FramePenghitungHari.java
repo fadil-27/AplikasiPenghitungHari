@@ -10,8 +10,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.Date;
 
 public class FramePenghitungHari extends javax.swing.JFrame {
 
@@ -114,6 +116,11 @@ public class FramePenghitungHari extends javax.swing.JFrame {
         jLabel3.setText("Selisih Hari :");
 
         jButton2.setText("Hitung Selisih Hari");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,6 +195,22 @@ public class FramePenghitungHari extends javax.swing.JFrame {
             ", Hari terakhir: " + lastDayOfWeek
     );
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Ambil tanggal dari jCalendar1 dan jCalendar2
+        Date date1 = jCalendar1.getDate();
+        Date date2 = jCalendar2.getDate();
+
+        // Konversi Date ke LocalDate untuk manipulasi lebih mudah
+        LocalDate localDate1 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDate2 = date2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Hitung selisih hari
+        long daysBetween = ChronoUnit.DAYS.between(localDate1, localDate2);
+
+        // Tampilkan hasil di JLabel
+        jLabel3.setText("Selisih hari: " + Math.abs(daysBetween) + " hari");   
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
